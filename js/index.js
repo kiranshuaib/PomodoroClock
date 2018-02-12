@@ -1,7 +1,7 @@
-$(function() {
+$( document ).ready(function() {
     var buzzer = $('#buzzer')[0],
         count = parseInt($('#num').html()),
-        count2 = parseInt($('#breakNum').html);
+        count2 = parseInt($('#breakNum').html());
 
     // buzzer.play();
     
@@ -12,13 +12,13 @@ $(function() {
       
     // to convert the count into min
        count *= 60;
-       count2 *=60;
+       count2*=60;
       
          function timer(){
-            $('#start,#title1,#mfiveTime,#mfiveBreak,#afiveTime,#afiveBreak,#breakNum,#title2').hide();
-            $('.reset').hide();
+            $('#start,#title1,#mfiveTime,#mfiveBreak,#afiveTime,#afiveBreak,#breakNum,#title2,#reset1,#reset2').hide();
             $('#session').show();
             $('#session').html("Session Time: ");
+            $('#reset1').show();
             
             count -=1;
         
@@ -44,15 +44,15 @@ $(function() {
                
                 count2-=1;
                 
-                if (count2 ===0){
+                if(count2 === 0){
                     clearInterval(counter2);
                     buzzer.play();
-                    $('.reset').show();
-                    $('#breakNum,#session').hide();
+                    $('#reset2').show();
+                    $('#breakNum,#session,#reset1').hide();
                 }
                 $('#breakNum').html(count2);
                   
-                if(count % 60 >= 10){
+                if(count2 % 60 >= 10){
                 $('#breakNum').html(Math.floor(count2/60) + ":" + count2%60);
                 } else {
                 $('#breakNum').html(Math.floor(count2/60) + ":" +"0"+ count2%60); 
@@ -78,20 +78,24 @@ $(function() {
     });
     
      $('#mfiveBreak').click(function() {
-        if (count > 0) {
-            count -= 5;
-            $("#breakNum").html(count);
+        if (count2 > 0) {
+            count2 -= 5;
+            $("#breakNum").html(count2);
         }
         event.preventDefault();
     });
 
     $('#afiveBreak').click(function() {
-        count += 5;
-        $("#breakNum").html(count);
+        count2 += 5;
+        $("#breakNum").html(count2);
         event.preventDefault();
     });
     
-     $('.reset').click(function(){
+     $('#reset1').click(function(){
+        location.reload();
+    });
+    
+       $('#reset2').click(function(){
         location.reload();
     });
     
